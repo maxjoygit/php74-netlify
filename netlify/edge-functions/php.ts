@@ -26,7 +26,9 @@ export default async function handler(request: Request) {
         // We could do more here, e.g. pass in the request body etc. See bootstrap.ts for an example
         await php.run(bootstrapCode(pathname, request.method));
         // This is the actual code that we want to run. We could fetch this from a file, but for simplicity we just pass it in directly
-        await php.run(`<?php phpinfo();
+        await php.run(`<?php 
+
+        print_r($_SERVER);
         
         
         
