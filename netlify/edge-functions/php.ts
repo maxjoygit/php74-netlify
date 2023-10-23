@@ -34,6 +34,7 @@ export default async function handler(request: Request) {
         $body = json_decode($reqBody, true);
 
         print_r($body);
+        
         `);
         resolve(
           new Response(buff.join("\n"), {
