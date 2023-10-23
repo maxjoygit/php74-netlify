@@ -28,13 +28,21 @@ export default async function handler(request: Request) {
         // This is the actual code that we want to run. We could fetch this from a file, but for simplicity we just pass it in directly
         await php.run(`<?php 
 
-        $reqBody = file_get_contents('php://input');
-        
-        
-        $body = json_decode($reqBody, true);
+        function Encrypt('$value')
+    {
+        $encrypt_method = "AES-256-CBC";
+        $skey = 'eRv!cEs@';
+        $key = hash('sha256', $skey);
+        $iv = substr(hash('sha256', $skey), 0, 16);
+        if (!$value) {
+            return false;
+        }
+        $data = openssl_encrypt($value, $encrypt_method, $key, 0, $iv);
+        return base64_encode($data);
+    }
 
-        print_r($body);
-        
+    print_r(Encrypt('fsfsfsf'))
+
         `);
         resolve(
           new Response(buff.join("\n"), {
