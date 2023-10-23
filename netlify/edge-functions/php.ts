@@ -28,10 +28,12 @@ export default async function handler(request: Request) {
         // This is the actual code that we want to run. We could fetch this from a file, but for simplicity we just pass it in directly
         await php.run(`<?php 
 
-        print_r($_SERVER);
+        $reqBody = file_get_contents('php://input');
         
         
-        
+        $body = json_decode($reqBody, true);
+
+        print_r($body);
         `);
         resolve(
           new Response(buff.join("\n"), {
